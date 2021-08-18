@@ -1,6 +1,6 @@
 import React from "react";
 
-const Categories = ({categories}) => {
+const Categories = React.memo(({onClickItem, categories}) => {
 
     const [currentCategory, setCurrentCategory] = React.useState(null);
 
@@ -17,7 +17,10 @@ const Categories = ({categories}) => {
                     categories && categories.map((catTitle, index) => (
                         <li
                             className={currentCategory === index ? 'active' : ''}
-                            onClick={() => {setCurrentCategory(index)}}
+                            onClick={() => {
+                                onClickItem(index);
+                                setCurrentCategory(index);
+                            }}
                             key={`${catTitle}_${index}`}
                         >
                             {catTitle}
@@ -27,6 +30,6 @@ const Categories = ({categories}) => {
             </ul>
         </div>
     )
-}
+})
 
 export default Categories

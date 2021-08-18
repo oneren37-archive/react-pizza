@@ -2,39 +2,30 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/Pizza-block";
 import React from "react";
-
+import {useDispatch, useSelector} from "react-redux";
+import {setCategory} from "../redux/actions/filters";
+import {catNames, sortOptions} from "../consts";
 
 const Home = () => {
+    const items = useSelector(({pizzas}) => pizzas.items)
 
-    // const [pizzas, setPizzas] = React.useState([]);
-    //
-    // React.useEffect(() => {
-    //     axios.get('http://localhost:3000/db.json').then(({ data }) => {setPizzas(data.pizzas);});
-    // }, []);
-
+    const dispatch = useDispatch()
+    const onSelectCategory = React.useCallback((index) => {
+        dispatch(setCategory(index))
+    }, [])
 
     return(
         <div className="container">
             <div className="content__top">
                 <Categories
-                    categories={[
-                        "Вегетарианские",
-                        "Гриль",
-                        "Острые",
-                        "Закрытые"
-                    ]}
+                    onClickItem={onSelectCategory}
+                    categories={catNames}
                 />
-                <Sort
-                    sortOptions={[
-                        "популярности",
-                        "цене",
-                        "алфавиту"
-                    ]}
-                />
+                <Sort sortOptions={sortOptions}/>
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {/*{pizzas.map(pizza => (<PizzaBlock {...pizza} key={pizza.id}/>))}*/}
+                {items.map(pizza => (<PizzaBlock {...pizza} key={pizza.id}/>))}
             </div>
         </div>
     )

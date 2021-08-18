@@ -1,7 +1,7 @@
 import React from "react";
 import arrow from "./arrow.svg"
 
-const Sort = ({sortOptions}) => {
+const Sort = React.memo(({sortOptions}) => {
 
     const [currentSort, setCurrentSort] = React.useState(0)
     const [visiblePopup, setVisiblePopup] = React.useState(false)
@@ -31,7 +31,7 @@ const Sort = ({sortOptions}) => {
                     alt='arrow'
                 />
                 <b>Сортировка по:</b>
-                <span onClick={() => toggleVisiblePopup()}>{sortOptions[currentSort]}</span>
+                <span onClick={() => toggleVisiblePopup()}>{sortOptions[currentSort].name}</span>
             </div>
             {
                 visiblePopup && (
@@ -43,7 +43,7 @@ const Sort = ({sortOptions}) => {
                                     onClick={() => onSelectSort(index)}
                                     key={index}
                                 >
-                                    {option}
+                                    {option.name}
                                 </li>
                             ))}
                         </ul>
@@ -52,6 +52,6 @@ const Sort = ({sortOptions}) => {
             }
         </div>
     )
-}
+})
 
 export default Sort
