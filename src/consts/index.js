@@ -5,6 +5,7 @@ export const sortOptions=[
 ]
 
 export const catNames = [
+    "Мясные",
     "Вегетарианские",
     "Гриль",
     "Острые",

@@ -9,7 +9,10 @@ const Categories = React.memo(({onClickItem, categories}) => {
             <ul>
                 <li
                     className={currentCategory === null ? 'active' : ''}
-                    onClick={() => {setCurrentCategory(null)}}
+                    onClick={() => {
+                        onClickItem(null);
+                        setCurrentCategory(null)}
+                    }
                 >
                     Все
                 </li>

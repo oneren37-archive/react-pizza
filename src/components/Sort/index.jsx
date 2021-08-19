@@ -1,7 +1,7 @@
 import React from "react";
 import arrow from "./arrow.svg"
 
-const Sort = React.memo(({sortOptions}) => {
+const Sort = React.memo(({sortOptions, onSelectSortBy}) => {
 
     const [currentSort, setCurrentSort] = React.useState(0)
     const [visiblePopup, setVisiblePopup] = React.useState(false)
@@ -16,6 +16,7 @@ const Sort = React.memo(({sortOptions}) => {
     const onSelectSort = (index) => {
         setCurrentSort(index)
         setVisiblePopup(false)
+        onSelectSortBy(sortOptions[index].type)
     }
 
     const toggleVisiblePopup = () => {
