@@ -7,8 +7,6 @@ export const fetchPizzas = (category="", sortBy="") => (dispatch) => {
         payload: false,
     });
 
-    console.log("here")
-
     axios.get('http://localhost:3005/pizzas', {
         params: {
             category: category,

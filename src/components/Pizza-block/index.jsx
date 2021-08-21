@@ -1,13 +1,14 @@
 import React from "react";
+import {useSelector} from "react-redux";
 
 const PizzaBlock = ({
+                        id,
                         imageUrl,
                         name,
                         types,
                         sizes,
                         price,
-                        category,
-                        rating
+                        onAddToCart
                     }) => {
 
     const allTypes = ["тонкое", "традиционное"]
@@ -15,6 +16,8 @@ const PizzaBlock = ({
 
     const [activeType, setActiveType] = React.useState(allTypes[types[0]])
     const [activeSize, setActiveSize] = React.useState(sizes[0])
+
+    const countInCart = useSelector(({cart}) => cart.items[id] ? cart.items[id].reduce((sum, el) => sum+el[1], 0) : 0)
 
     return(
         <div className="pizza-block">
@@ -48,7 +51,14 @@ const PizzaBlock = ({
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price}₽</div>
-                <div className="button button--outline button--add">
+                <div onClick={() => onAddToCart({
+                    pizzaId: id,
+                    imageUrl,
+                    name,
+                    price,
+                    type: activeType,
+                    size: activeSize
+                })} className="button button--outline button--add">
                     <svg
                         width="12"
                         height="12"
@@ -62,7 +72,7 @@ const PizzaBlock = ({
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
+                    {countInCart ? <i>{countInCart}</i> : ''}
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setCategory, setSortBy} from "../redux/actions/filters";
+import {addToCart} from "../redux/actions/cart";
 import {catNames, sortOptions} from "../consts";
 import {Categories, Sort, PizzaBlock, LoadingPizzaBlock} from "../components";
 import {fetchPizzas} from "../api";
@@ -17,6 +18,10 @@ const Home = () => {
 
     const onSelectSortBy = React.useCallback((index) => {
         dispatch(setSortBy(index))
+    }, [])
+
+    const onAddToCart = React.useCallback((data) => {
+        dispatch(addToCart(data))
     }, [])
 
     React.useEffect(() => {
@@ -38,7 +43,7 @@ const Home = () => {
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {isLoaded
-                    ? items.map(pizza => (<PizzaBlock {...pizza} key={pizza.id}/>))
+                    ? items.map(pizza => (<PizzaBlock {...pizza} onAddToCart={onAddToCart} key={pizza.id}/>))
                     : Array(9).fill(0).map((_, index) => (<LoadingPizzaBlock key={index}/>))
                 }
             </div>
