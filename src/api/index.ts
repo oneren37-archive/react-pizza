@@ -1,7 +1,9 @@
 import axios from "axios";
 import {setPizzas} from "../redux/actions/pizzas";
+import {Dispatch} from "redux";
+import {Category} from "../types";
 
-export const fetchPizzas = (category="", sortBy="") => (dispatch) => {
+export const fetchPizzas = (category: Category.id, sortBy="") => (dispatch: Dispatch) => {
     dispatch({
         type: 'SET_LOADED',
         payload: false,

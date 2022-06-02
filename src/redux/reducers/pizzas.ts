@@ -1,9 +1,12 @@
-const initialState = {
+import {PizzasAction, PizzasState} from "../types";
+
+
+const initialState: PizzasState = {
     items: [],
     isLoaded: false
 }
 
-const pizzas = (state = initialState, action) => {
+const pizzas = (state: PizzasState = initialState, action: PizzasAction) => {
     if (action.type === 'SET_PIZZAS'){
         return {
             ...state,
@@ -14,7 +17,7 @@ const pizzas = (state = initialState, action) => {
     if (action.type === "SET_LOADED"){
         return {
             ...state,
-            isLoaded: false
+            isLoaded: action.payload
         }
     }
     return state

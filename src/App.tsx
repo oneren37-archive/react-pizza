@@ -3,20 +3,8 @@ import {Route} from "react-router-dom";
 
 import {Header} from "./components";
 import {Home, Cart} from "./pages";
-import axios from "axios";
-import {useDispatch} from "react-redux";
-import {setPizzas} from "./redux/actions/pizzas";
 
-function App() {
-
-    const dispatch = useDispatch()
-
-    // React.useEffect(() => {
-    //     axios.get('http://localhost:3005/pizzas').then(({data}) => {
-    //         dispatch(setPizzas(data))
-    //     });
-    // }, []);
-
+const App: React.FC = () => {
     return (
         <div className="wrapper">
             <Header />
@@ -27,7 +15,5 @@ function App() {
         </div>
     );
 }
-
-
 
 export default App;

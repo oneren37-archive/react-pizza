@@ -4,17 +4,23 @@ import {CartItem} from "../../components";
 import {useDispatch, useSelector} from "react-redux";
 import {clearCart, removeCartItem, incrementCartItem, decrementCartItem} from "../../redux/actions/cart";
 import EmptyCart from "./EmptyCart";
+import {RootState} from "../../redux/reducers";
 
-function Cart() {
+interface ICartItem {
+    pizzaId: number,
+    type: number,
+    size: number
+}
 
 
-    const {items, totalCount, totalPrice} = useSelector(({cart}) => cart)
+const Cart: React.FC = () => {
+    const {items, totalCount, totalPrice} = useSelector(({cart}: RootState) => cart)
     const dispatch = useDispatch()
 
-    const handleRemoveCartItem = React.useCallback(item => dispatch(removeCartItem(item)))
+    const handleRemoveCartItem = React.useCallback<(item: ICartItem) => void>(item => dispatch(removeCartItem(item)), [])
     const handleClearCart = () => dispatch(clearCart())
-    const handleIncrementCartItem = (payload) => dispatch(incrementCartItem(payload))
-    const handleDecrementCartItem = (payload) => dispatch(decrementCartItem(payload))
+    const handleIncrementCartItem = (payload: ICartItem) => dispatch(incrementCartItem(payload))
+    const handleDecrementCartItem = (payload: ICartItem) => dispatch(decrementCartItem(payload))
     const cartIsEmpty = totalCount <= 0
 
     return (
@@ -52,9 +58,9 @@ function Cart() {
                         </div>
                     </div>
                     <div className="cart-content__items">
-                        {Object.keys(items).map((pizzaId, i) => items[pizzaId].map((item, j) => (
+                        {Object.keys(items).map((pizzaId, i) => items[Number(pizzaId)].map((item, j) => (
                             <CartItem
-                                pizzaId={pizzaId}
+                                pizzaId={Number(pizzaId)}
                                 {...item[0]}
                                 count={item[1]}
                                 onRemove={handleRemoveCartItem}
