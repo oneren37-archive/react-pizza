@@ -12,13 +12,11 @@ const Sort: React.FC<ISortProps> = React.memo(({sortOptions, onSelectSortBy}) =>
 
     const [currentSort, setCurrentSort] = React.useState<number>(0)
     const [visiblePopup, setVisiblePopup] = React.useState<boolean>(false)
-    const sortRef = React.useRef<HTMLDivElement>(null);
+    const sortRef = React.useRef<any>(null);
 
     React.useEffect(() => {
         document.body.addEventListener('click', (e: Event) => {
-            //if(!e.composedPath().includes(sortRef.current)) { setVisiblePopup(false); }
-            // TODO разобраться с тем как достать path
-            console.log(e.composedPath())
+            if(!e.composedPath().includes(sortRef.current)) { setVisiblePopup(false); }
         });
     },[])
 
