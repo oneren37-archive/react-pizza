@@ -1,8 +1,10 @@
 import React from "react";
+import {ICategoriesProps} from "./types";
+import {Category} from "../../types";
 
-const Categories = React.memo(({onClickItem, categories}) => {
+const Categories: React.FC<ICategoriesProps> = React.memo(({onClickItem, categories}) => {
 
-    const [currentCategory, setCurrentCategory] = React.useState(null);
+    const [currentCategory, setCurrentCategory] = React.useState<Category.id>(null);
 
     return(
         <div className="categories">
@@ -17,14 +19,14 @@ const Categories = React.memo(({onClickItem, categories}) => {
                     Все
                 </li>
                 {
-                    categories && categories.map((catTitle, index) => (
+                    categories && categories.map((catTitle, id) => (
                         <li
-                            className={currentCategory === index ? 'active' : ''}
+                            className={currentCategory === id ? 'active' : ''}
                             onClick={() => {
-                                onClickItem(index);
-                                setCurrentCategory(index);
+                                onClickItem(id);
+                                setCurrentCategory(id);
                             }}
-                            key={`${catTitle}_${index}`}
+                            key={`${catTitle}_${id}`}
                         >
                             {catTitle}
                         </li>

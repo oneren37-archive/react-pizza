@@ -1,6 +1,20 @@
 import React from "react";
 
-const CartItem = ({
+
+interface CartItemProps {
+    pizzaId: number,
+    imageUrl: string,
+    name: string,
+    price: number,
+    type: number,
+    size: number,
+    count: number,
+    onRemove: (data: any) => void,
+    onIncrement: (data: any) => void,
+    onDecrement: (data: any) => void
+}
+
+const CartItem: React.FC<CartItemProps> = ({
                     pizzaId,
                     imageUrl,
                     name,
@@ -27,7 +41,7 @@ const CartItem = ({
                 <p>{type} тесто, {size} см.</p>
             </div>
             <div className="cart__item-count">
-                <div onClick={() => onDecrement({pizzaId, type, size})} className="button button--outline button--circle cart__item-count-minus">
+                <div onClick={() => onDecrement({pizzaId: pizzaId, type, size})} className="button button--outline button--circle cart__item-count-minus">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -40,7 +54,7 @@ const CartItem = ({
 
                 </div>
                 <b>{count}</b>
-                <div onClick={() => onIncrement({pizzaId, type, size}) } className="button button--outline button--circle cart__item-count-plus">
+                <div onClick={() => onIncrement({pizzaId: pizzaId, type, size}) } className="button button--outline button--circle cart__item-count-plus">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -56,7 +70,7 @@ const CartItem = ({
             <div className="cart__item-price">
                 <b>{price*count} ₽</b>
             </div>
-            <div onClick={() => onRemove({pizzaId, type, size, count, price})} className="cart__item-remove">
+            <div onClick={() => onRemove({pizzaId: pizzaId, type, size, count, price})} className="cart__item-remove">
                 <div className="button button--outline button--circle">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">

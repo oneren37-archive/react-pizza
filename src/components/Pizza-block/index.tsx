@@ -1,8 +1,15 @@
 import React from "react";
 import {useSelector} from "react-redux";
+import {Pizza} from "../../types";
+import {allTypes, allSizes} from "../../consts";
+import {RootState} from "../../redux/reducers";
 
-const PizzaBlock = ({
-                        id,
+interface IPizzaBlockProps extends Pizza.IPizza{
+    onAddToCart: (data: any) => void
+}
+
+const PizzaBlock: React.FC<IPizzaBlockProps> = ({
+                        pizzaId,
                         imageUrl,
                         name,
                         types,
@@ -11,13 +18,10 @@ const PizzaBlock = ({
                         onAddToCart
                     }) => {
 
-    const allTypes = ["тонкое", "традиционное"]
-    const allSizes = [26, 30, 40]
-
     const [activeType, setActiveType] = React.useState(allTypes[types[0]])
     const [activeSize, setActiveSize] = React.useState(sizes[0])
 
-    const countInCart = useSelector(({cart}) => cart.items[id] ? cart.items[id].reduce((sum, el) => sum+el[1], 0) : 0)
+    const countInCart = useSelector(({cart}: RootState) => cart.items[pizzaId] ? cart.items[pizzaId].reduce((sum, el) => sum+el[1], 0) : 0)
 
     return(
         <div className="pizza-block">
@@ -52,7 +56,7 @@ const PizzaBlock = ({
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price}₽</div>
                 <div onClick={() => onAddToCart({
-                    pizzaId: id,
+                    pizzaId: pizzaId,
                     imageUrl,
                     name,
                     price,

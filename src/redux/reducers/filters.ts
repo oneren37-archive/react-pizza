@@ -1,9 +1,12 @@
-const initialState = {
+import {FiltersAction, FiltersState} from "../types";
+
+
+const initialState: FiltersState = {
     category: null,
     sortBy: 'popular'
 }
 
-const filters = (state = initialState, action) => {
+const filters = (state = initialState, action: FiltersAction) => {
     if (action.type === 'SET_SORT_BY'){
         return {
             ...state,

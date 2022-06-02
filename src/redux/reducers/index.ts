@@ -3,11 +3,16 @@ import {combineReducers} from "redux";
 import filtersReducer from './filters'
 import pizzasReducer from './pizzas'
 import cartReducer from './cart'
+import {CartState, FiltersState, PizzasState} from "../types";
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     filters: filtersReducer,
     pizzas: pizzasReducer,
     cart: cartReducer
 })
 
-export default rootReducer
+export type RootState = {
+    cart: CartState,
+    filters: FiltersState,
+    pizzas: PizzasState
+}

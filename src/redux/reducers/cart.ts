@@ -1,10 +1,12 @@
-const initialState = {
+import {CartAction, CartState} from "../types";
+
+const initialState: CartState = {
     items: {},
     totalPrice: 0,
     totalCount: 0
 }
 
-const cart = (state = initialState, action) => {
+const cart = (state: CartState = initialState, action: CartAction) => {
 
     if (action.type === "ADD_TO_CART"){
         const {imageUrl, name, price, pizzaId, type, size} = action.payload
@@ -53,8 +55,8 @@ const cart = (state = initialState, action) => {
         const {pizzaId, type, size, count, price} = action.payload
         const newItems = {...state.items}
 
-        if (newItems[parseInt(pizzaId)] && newItems[parseInt(pizzaId)].length === 1){ delete newItems[pizzaId] }
-        else if (newItems[parseInt(pizzaId)]){
+        if (newItems[pizzaId] && newItems[pizzaId].length === 1){ delete newItems[pizzaId] }
+        else if (newItems[pizzaId]){
             const elementToDeleteIndex = newItems[pizzaId].findIndex(e => (
                 e[0].type === type &&
                 e[0].size === size
@@ -71,10 +73,15 @@ const cart = (state = initialState, action) => {
     if (action.type === "INCREMENT_CART_ITEM") {
         const {pizzaId, type, size} = action.payload
         const cartItem = state.items[pizzaId].find(el => el[0].type === type && el[0].size === size)
-        cartItem[1]+=1
-        const price = cartItem[0].price
-        const totalCount = state.totalCount + 1
-        const totalPrice = state.totalPrice + price
+        let totalCount = state.totalCount
+        let totalPrice = state.totalPrice
+
+        if (cartItem) {
+            cartItem[1] += 1
+            const price = cartItem[0].price
+            totalCount += 1
+            totalPrice += price
+        }
 
         return {
             ...state,
@@ -89,7 +96,7 @@ const cart = (state = initialState, action) => {
         let totalCount = state.totalCount
         let totalPrice = state.totalPrice
 
-        if (cartItem[1] > 1){
+        if (cartItem && cartItem[1] > 1){
             cartItem[1] -= 1
             const price = cartItem[0].price
             totalCount -= 1

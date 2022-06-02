@@ -1,19 +1,26 @@
 import React from "react";
 import arrow from "./arrow.svg"
+import {SortOptionsType} from "../../consts";
+import {SortType} from "../../types";
 
-const Sort = React.memo(({sortOptions, onSelectSortBy}) => {
+interface ISortProps {
+    sortOptions: SortOptionsType[],
+    onSelectSortBy: (type: SortType) => void
+}
 
-    const [currentSort, setCurrentSort] = React.useState(0)
-    const [visiblePopup, setVisiblePopup] = React.useState(false)
-    const sortRef = React.useRef();
+const Sort: React.FC<ISortProps> = React.memo(({sortOptions, onSelectSortBy}) => {
+
+    const [currentSort, setCurrentSort] = React.useState<number>(0)
+    const [visiblePopup, setVisiblePopup] = React.useState<boolean>(false)
+    const sortRef = React.useRef<any>(null);
 
     React.useEffect(() => {
-        document.body.addEventListener('click', (e) => {
-            if(!e.path.includes(sortRef.current)) {setVisiblePopup(false);}
+        document.body.addEventListener('click', (e: Event) => {
+            if(!e.composedPath().includes(sortRef.current)) { setVisiblePopup(false); }
         });
     },[])
 
-    const onSelectSort = (index) => {
+    const onSelectSort = (index: number) => {
         setCurrentSort(index)
         setVisiblePopup(false)
         onSelectSortBy(sortOptions[index].type)

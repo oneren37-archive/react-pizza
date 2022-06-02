@@ -2,8 +2,9 @@ import React from "react";
 import logo from "../../assets/img/pizza-logo.svg";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {RootState} from "../../redux/reducers";
 
-const Header = () => {
+const Header: React.FC = () => {
     return(
         <div className="header">
             <div className="container">
@@ -21,9 +22,8 @@ const Header = () => {
 }
 
 
-const CartWidget = () => {
-
-    const {totalCount, totalPrice} = useSelector(({cart}) => ({totalCount: cart.totalCount, totalPrice: cart.totalPrice}))
+const CartWidget: React.FC = () => {
+    const {totalCount, totalPrice} = useSelector(({cart}: RootState) => ({totalCount: cart.totalCount, totalPrice: cart.totalPrice}))
 
     return (
         <div className="header__cart">
